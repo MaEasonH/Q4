@@ -1,0 +1,52 @@
+---
+title: "Quiz4Q4"
+author: "HengMa"
+format: pdf
+editor: visual
+---
+```{r}
+#| echo: false
+#| message: false
+library(car)
+library(ggplot2)
+library(stats)
+library(lawstat)
+set.seed(1)
+
+TrueHeight_Edward <- rnorm(20, 170, 10)
+TrueHeight_Hugo <- rnorm(20, 170, 10)
+TrueHeight_Lucy <- rnorm(20, 170, 10)
+
+
+EdwardMeasurement <- TrueHeight_Edward + rnorm(20, 0, 2)
+HugoMeasurement <- TrueHeight_Hugo + 3
+LucyMeasurement <- TrueHeight_Lucy - 2
+
+data <- data.frame(FriendID = rep(1:20, 3),
+                   Height = c(TrueHeight_Edward, HugoMeasurement, LucyMeasurement),
+                   Group = rep(c("Edward", "Hugo", "Lucy"), each = 20))
+```
+
+
+      
+
+
+```{r}
+#| echo: false
+#| message: false
+library(ggplot2)
+ggplot(data, aes(x = as.factor(FriendID), y = Height, color = Group)) +
+  geom_point(size = 3) +  # Size of the points can be adjusted
+  theme_minimal() +  # Minimal theme for a cleaner look
+  labs(title = "Height Measurements by Edward, Hugo, and Lucy",
+       x = "Friend ID",
+       y = "Height (cm)",
+       color = "Measured by:") +  # Label for the legend
+  scale_color_manual(values = c("Edward" = "blue", "Hugo" = "green", "Lucy" = "red")) +  # Custom colors
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+
+```
+
+## Introduction
+
+In this study, we examine how three people—Edward, Hugo, and Lucy—measure the height of 20 friends differently, leading to variations in their results. Each person used a unique method to measure height, which introduces specific types of errors into their measurements. Edward's results vary slightly due to random mistakes, Hugo always records heights as a bit taller than they are, and Lucy's measurements come out slightly shorter. The data collected includes an ID for each friend, their measured height, and the name of the person who measured them. By using a graph created with the R programming language, we can see these differences visually. The graph plots each friend's ID against their recorded height, with different colors showing who made each measurement. This approach helps us understand how small measurement errors can affect the data we collect and analyze.
